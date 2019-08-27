@@ -566,13 +566,16 @@ void menuUpdateNetloader(netloaderState *netloader_state) {
     memset(netloader_displaytext, 0, sizeof(netloader_displaytext));
     memset(textbody, 0, sizeof(textbody));
 
-    u32 ip = gethostid();
+    /*u32 ip = gethostid();
 
     if (ip == INADDR_LOOPBACK)
         snprintf(textbody, sizeof(textbody)-1, "%s", textGetString(StrId_NetLoaderOffline));
-    else {
+    else*/ {
         if (!netloader_state->sock_connected)
-            snprintf(textbody, sizeof(textbody)-1, textGetString(StrId_NetLoaderActive), ip&0xFF, (ip>>8)&0xFF, (ip>>16)&0xFF, (ip>>24)&0xFF, NXLINK_SERVER_PORT);
+        {
+            //snprintf(textbody, sizeof(textbody)-1, textGetString(StrId_NetLoaderActive), ip&0xFF, (ip>>8)&0xFF, (ip>>16)&0xFF, (ip>>24)&0xFF, NXLINK_SERVER_PORT);
+            snprintf(textbody, sizeof(textbody)-1, "Waiting for usb connection...");
+        }
         else {
             enable_progress = 1;
             progress = (float)netloader_state->filetotal / netloader_state->filelen;
