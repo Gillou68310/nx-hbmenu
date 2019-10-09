@@ -237,6 +237,10 @@ bool menuUpdate(void) {
     {
         exitflag = 1;
     }
+    else if (down & KEY_L)
+    {
+        menuHandleLButton();
+    }
     else if (menu->nEntries > 0)
     {
         int move = 0;

@@ -36,6 +36,11 @@ void launchMenuEntryTask(menuEntry_s* arg) {
         launchMenuEntry(me);
 }
 
+void toggleDebugState(menuEntry_s* arg) {
+    menuEntry_s* me = arg;
+    me->debug = (me->debug) ? false : true;
+}
+
 void toggleStarState(menuEntry_s* arg) {
     menuEntry_s* me = arg;
     if (me->starred) {
@@ -117,6 +122,17 @@ void menuHandleXButton(void) {
         menuEntry_s* me;
         for (i = 0, me = menu->firstEntry; i != menu->curEntry; i ++, me = me->next);
         toggleStarState(me);
+    }
+}
+
+void menuHandleLButton(void) {
+    menu_s* menu = menuGetCurrent();
+
+    if (menu->nEntries > 0 && hbmenu_state == HBMENU_DEFAULT) {
+        int i;
+        menuEntry_s* me;
+        for (i = 0, me = menu->firstEntry; i != menu->curEntry; i ++, me = me->next);
+        toggleDebugState(me);
     }
 }
 
@@ -235,6 +251,7 @@ static void drawEntry(menuEntry_s* me, int off_x, int is_active) {
     const uint8_t *smallimg = NULL;
     const uint8_t *largeimg = NULL;
     char *strptr = NULL;
+	char *strptr2 = NULL;
     char tmpstr[1024];
 
     int border_start_x, border_end_x;
@@ -365,12 +382,17 @@ static void drawEntry(menuEntry_s* me, int off_x, int is_active) {
     }
 
     if (me->type != ENTRY_TYPE_THEME)
+    {
         strptr = me->starred ? themeCurrent.labelStarOnText : "";
+    }
     else
+    {
         strptr = "";
+    }
 
+    strptr2 = (me->debug) ? "(debug)" : "";
     memset(tmpstr, 0, sizeof(tmpstr));
-    snprintf(tmpstr, sizeof(tmpstr)-1, "%s%s", strptr, me->name);
+    snprintf(tmpstr, sizeof(tmpstr)-1, "%s%s%s", strptr, me->name, strptr2);
 
     layoutobj = &themeCurrent.layoutObjects[ThemeLayoutId_MenuListName];
     DrawTextTruncate(layoutobj->font, start_x + layoutobj->posStart[0], start_y + layoutobj->posStart[1], themeCurrent.borderTextColor, tmpstr, layoutobj->size[0], "...");

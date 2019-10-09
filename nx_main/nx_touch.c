@@ -139,6 +139,7 @@ void handleTouch(menu_s* menu) {
                     }
                 }
             }
+            //TODO: debug state
         }
         // Vertical Swipe
         else if (abs(x1 - x2) < VERTICAL_SWIPE_HORIZONTAL_PLAY && distance(x1, y1, x2, y2) > VERTICAL_SWIPE_MINIMUM_DISTANCE) {

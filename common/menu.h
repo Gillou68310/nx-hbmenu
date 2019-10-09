@@ -67,6 +67,7 @@ struct menuEntry_s_tag
     uint8_t *icon_gfx_small;
     
     bool starred;
+    bool debug;
 
     NacpStruct *nacp;
 };
@@ -107,6 +108,7 @@ int menuFileassocScan(const char* target);
 
 void launchMenuEntryTask(menuEntry_s* arg);
 void toggleStarState(menuEntry_s* arg);
+void toggleDebugState(menuEntry_s* arg);
 void launchApplyThemeTask(menuEntry_s* arg);
 void launchMenuBackTask();
 void launchMenuNetloaderTask();
@@ -115,6 +117,7 @@ char *menuGetRootBasePath(void);
 
 void menuHandleAButton(void);
 void menuHandleXButton(void);
+void menuHandleLButton(void);
 
 bool menuIsNetloaderActive(void);
 

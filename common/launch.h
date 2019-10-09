@@ -10,7 +10,7 @@ typedef struct
     //u32 flags;
     bool (* init)(void);
     void (* deinit)(void);
-    void (* launchFile)(const char* path, argData_s* args);
+    void (* launchFile)(const char* path, argData_s* args, bool debug);
 
     // Optional fields
     //void (* useTitle)(u64 tid, u8 mediatype);

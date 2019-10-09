@@ -51,19 +51,22 @@ static void deinit(void)
 
 }
 
-static void launchFile(const char* path, argData_s* args)
+static void launchFile(const char* path, argData_s* args, bool debug)
 {
     char msg[256];
     /*if (strncmp(path, "sdmc:/",6) == 0)
         path += 5;*/
     memset(argBuf, 0, sizeof(argBuf));
 
-   uint32_t remote = args->nxlink_host.s_addr;
-
-   if (remote) {
+    uint32_t remote = args->nxlink_host.s_addr;
+ 
+    if (remote) {
         char nxlinked[17];
         sprintf(nxlinked,"%08" PRIx32 "_NXLINK_",remote);
         launchAddArg(args, nxlinked);
+    }
+    if (debug) {
+        launchAddArg(args, "_DEBUG_");
     }
 
     init_args(argBuf, sizeof(argBuf)-1, args->buf, sizeof(args->buf));

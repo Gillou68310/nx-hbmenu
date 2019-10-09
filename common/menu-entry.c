@@ -541,6 +541,7 @@ bool menuEntryLoad(menuEntry_s* me, const char* name, bool shortcut, bool check_
     int strptrLen = strlen(strptr);
     snprintf(me->starpath, sizeof(me->starpath)-1, "%.*s.%.*s.star", (int)(strlen(me->path) - strptrLen), me->path, (int)strptrLen, strptr);
     me->starred = fileExists(me->starpath);
+    me->debug = false;
     
     return true;
 }

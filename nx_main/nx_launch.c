@@ -74,5 +74,5 @@ void launchMenuEntry(menuEntry_s* me) {
 
     // Launch it
     if (s_loader == NULL) return;
-    s_loader->launchFile(me->path, &me->args);
+    s_loader->launchFile(me->path, &me->args, me->debug);
 }
